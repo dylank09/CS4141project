@@ -2,7 +2,7 @@
 Spreadsheet system 
 
 I bolded some of the important information in the project assignment specification that Dermot sent us. - DK
-
+      (bolding isnt in github  lol)
 Project Description
 Spreadsheet systems allow several sheets to be stored in a single spreadsheet workbook. For example, in the Excel system when you create a new workbook it has, by default, three sheets.
 The sheets can be named or renamed but the name must be at least one character long. The default sheets are initially named Sheet1, Sheet2 and Sheet3 but these can be changed by the user at any time.
