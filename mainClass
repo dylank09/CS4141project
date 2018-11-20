@@ -21,59 +21,68 @@ private int numSheets;
 		
 	}
 	
-	    public String move(int from, int to, boolean before) {
-        
-        /*
+	    /*
         The 'from' element will be placed in a temporary vairable 'temp'.
         If 'from' < 'to', each element after 'from' will be shifted back one position, i.e. [from+1] will now
         be stored in index [from]. The 'from' index will then be placed in the index ['to' + 1] (if before == false)
         and ['to' - 1] (if before == true). If 'from' >  'to', each element will be shifted forward and the
         element will be placed in index 'to + 1' {if before == false) and 'to - 1' (before == true).
         */
-        
-        if ((workbook[from]).length() > 0 && (workbook[to]).length() > 0) { // checks if index contains a sheet
-            if (before == false) {                                          // a sheet exists if it has a name
-                if (from < to) {
-                    String temp = workbook[from];
-                    for (int i = 1; i <= to - from + 2; i++) {      // shifts elements backward in position 
-                        workbook[from + (i-1)] = workbook[from+i];  // i.e. [6] to [5], then [7] to [6]'s starting index
-                    }                                               
-                    workbook[to+1] = temp;
-                    return workbook[from];
-                } else if (from > to) {
-                    String temp = workbook[from];
-                    for (int i = 1; i <= from - to; i++) {          // shifts elements forward in position 
-                        workbook[from - (i-1)] = workbook[from-i];  // i.e. [6] to [7], then [5] to [6] and so on
-                    }                                               
-                    workbook[to+1] = temp;
-                    return workbook[from];
-                } else {                                            // 'from' == 'to', gives a null statement
-                    return  "";
-                }
-            } else {
-                if (from < to) {
-                    String temp = workbook[from];
-                    for (int i = 1;i <= to - from; i++) {
-                        workbook[from + (i-1)] = workbook[from+i];  // shifts elements backward in position 
-                    }                                               // i.e. [6] to [5], then [7] to [6]'s starting index
-                    workbook[to-1] = temp;
-                    return workbook[from];
-                } else if (from > to) {
-                    String temp = workbook[from];
-                    for (int i = 1; i <= from - to + 2; i++) {
-                        workbook[from - (i-1)] = workbook[from-i];  // shifts elements forward in position 
-                    }                                               // i.e. [6] to [7], then [5] to [6] and so on
-                    workbook[to+1] = temp;
-                    return workbook[from];
-                } else {
-                    return "";
-                }
-            }
-        } else {            // if either of the sheets do not exist, a null statement will be returned
-        return "";
-        }
-        
-    }
+    	
+	public String move(int from, int to, boolean before) {
+		String value = "";
+		System.out.println("\n" + from + " -- " + to);
+		if (from < nextPos && from >= 0 && to < nextPos && to >= 0) {       	// checks if 'from' and 'to' are indices of a sheet
+
+			if (before == false) {
+
+				if (from < to) {  // working :)
+				    String temp = workbook[from];
+				    for (int i = 0; i <= to - from; i++) {          	// shifts elements forward in position 
+					workbook[from + i] = workbook[from+(i+1)];  	// i.e. [1] to [2], [2] to [3] and so on
+				    }                                               
+				    workbook[to] = temp;
+				    value = temp;
+
+				} else if (from > to) { // working :)
+				    String temp = workbook[from];
+				    for (int i = 0; i <= from - to; i++) {          	// shifts elements backward in position 
+					workbook[from - (i)] = workbook[from-(i-1)];  	// i.e. [3] to [2], [2] to [1] and so on
+				    }                                               
+				    workbook[to+1] = temp;
+				    value = temp;
+
+				} else { // 'from' == 'to' gives a null statement
+				    value =  null;
+				}
+
+		    	} else {
+
+				if (from < to) { // working :)
+				    String temp = workbook[from];
+				    for (int i = 0;i <= to - from - 1; i++) {
+					workbook[from + (i)] = workbook[from+i+1];  	// shifts elements forward in position 
+				    }                                               	// i.e. [1] to [2], [2] to [3] and so on
+				    workbook[to-1] = temp;
+				    value = temp;
+
+			 	} else if (from > to) { // working :)
+				    String temp = workbook[from];
+				    for (int i = 0; i <= from - to; i++) {          	// shifts elements backward in position 
+					workbook[from - (i)] = workbook[from-i-1];  	// i.e. [3] to [2], [2] to [1] and so on
+				    }                                               
+				    workbook[to] = temp;
+				    value = temp;
+
+				} else {
+				    value = null;
+				}
+			}
+		} else {  		// if either of the sheets do not exist, a null statement will be returned
+		value = null;
+		}
+		return value;
+    	}
 	
 	public boolean add() {
 		if (nextPos < workbook.length) {  //if the next position is less than the capacity of the array
