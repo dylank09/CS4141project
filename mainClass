@@ -7,7 +7,7 @@ private int numSheets;
 
 
 
-	public mainClassProj(int capacity) {
+	public void mainClassProj(int capacity) {
 		workbook = new String[capacity];
 		workbook[1] = "Sheet1";
 		workbook[2] = "Sheet2";
