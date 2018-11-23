@@ -11,18 +11,22 @@ private int nextPos;
 private int numSheets;
 
 
-
-	public void mainClassProj(int capacity) {
-		workbook = new String[capacity];
-		workbook[1] = "Sheet1";
-		workbook[2] = "Sheet2";
-		workbook[3] = "Sheet3";
-		nextPos = 4;
+	/**
+	* Iniatializes the workbook array.
+	* Creates three sheets: Sheet1, Sheet2 and Sheet3 in the first 3 positions (0,1,2)
+	* Sets the value of the next free position and the number of sheets to 3.
+	*/
+	public mainClassProj() {
+		workbook = new String[256]; 	// Gives workbook 256 positions. 
+		workbook[0] = "Sheet1";
+		workbook[1] = "Sheet2";
+		workbook[2] = "Sheet3";
+		nextPos = 3;
 		numSheets = 3;
-		//each name must be unique (case-insensitive)
-		//at least one sheet always
-		//sheet must have at least one character
-		//sheets can only have A-Z, 0-9
+		// each name must be unique (case-insensitive)
+		// at least one sheet always
+		// sheet must have at least one character
+		// sheets can only have A-Z, 0-9
 		
 	}
 	
@@ -30,10 +34,10 @@ private int numSheets;
 	* This method will either shift each element forward or backward a number of spaces depending on whether the input
 	* variable 'from' is greater than or less than 'to'. The number of spaces depends on the value of the boolean before.
 	* If 'from' is equal to 'to', null String will be returned
-        * @param from This is the index of the sheet you want to move.
-	* @param to This is the index of the sheet before or after which the sheet at 'from' should be moved to. 
-	* @param before If true, the sheet will be moved to before the sheet at 'to'. If false it will be moved after the sheet at 'to'.
-	* @return String If a sheet is moved, the name of the sheet at 'from' will be returned. If unsuccessful, a null String will be returned.
+        * @param 	from	This is the index of the sheet you want to move.
+	* @param 	to 	This is the index of the sheet before or after which the sheet at 'from' should be moved to. 
+	* @param 	before 	If true, the sheet will be moved to before the sheet at 'to'. If false it will be moved after the sheet at 'to'.
+	* @return	 	If a sheet is moved, the name of the sheet at 'from' will be returned. If unsuccessful, a null String will be returned.
         */
     	
 	public String move(int from, int to, boolean before) {
@@ -94,10 +98,10 @@ private int numSheets;
 	* This method will either shift each element forward or backward a number of spaces depending on whether the index 
 	* 'from' is greater than or less than the index of 'to'. The number of spaces depends on the value of the boolean before.
 	* If the index of 'from' is equal to the index of 'to', -1 will be returned
-	* @param from This is the name of the sheet you want to move.
-	* @param to This is the name of the sheet before or after which the sheet 'from' should be moved to. 
-	* @param before If true, the sheet will be moved to before the sheet 'to'. If false it will be moved after the sheet 'to'.
-	* @return String If a sheet is moved, the index of the sheet 'from' will be returned. If unsuccessful, -1 will be returned.
+	* @param 	from 	This is the name of the sheet you want to move.
+	* @param 	to 	This is the name of the sheet before or after which the sheet 'from' should be moved to. 
+	* @param 	before 	If true, the sheet will be moved to before the sheet 'to'. If false it will be moved after the sheet 'to'.
+	* @return		If a sheet is moved, the index of the sheet 'from' will be returned. If unsuccessful, -1 will be returned.
 	*/
     	public int move(String from, String to, boolean before) {
         	if (move(index(from), index(to), before) != null)		// checks if 'from' and 'to' are elements of the array
@@ -107,6 +111,10 @@ private int numSheets;
 		}
     	}
 	
+	/**
+	* Adds a sheet when called, if there is an available space.
+	* @return		True if sheet added, otherwise false.
+	*/
 	public boolean add() {
 		if (nextPos < workbook.length) {  //if the next position is less than the capacity of the array
 			String SheetN = "Sheet" + nextPos;  //creates the name for the next sheet
@@ -121,6 +129,11 @@ private int numSheets;
 		
 	}
 	
+	/**
+	* Removes a sheet.
+	* @param 	sheetName	Name of the sheet to be removed.	
+	* @return			If remove is successful, index of sheet is returned, otherwise -1 is returned.		
+	*/
 	public int remove(String sheetName) {
 		int i, index = 0;
 		if(numSheets > 1) {
@@ -142,6 +155,11 @@ private int numSheets;
 		return index;
 	}
 	
+	/**
+	* Removes a sheet.
+	* @param 	index	Index of the sheet to be removed.	
+	* @return		If remove is successful, the name of the sheet is returned, otherwise null is returned.		
+	*/
 	public String remove(int index) {
 		String val;
 		int i;
@@ -167,10 +185,14 @@ private int numSheets;
 
 	}
 	
+	/**
+	* Returns the index of a sheet, given its name.
+	* @param 	sheetName	Name of the sheet.	
+	* @return			If successful, index of sheet is returned, otherwise -1 is returned.		
+	*/
 	public int index(String sheetName) {
-		
 		int i, index = 0;
-		for(i = 0 ; i <= numSheets ; i++) {  //search for the sheetName
+		for(i = 0 ; i <= numSheets ; i++) {  	// search for the sheetName
 			if(workbook[i] == sheetName) {
 				index = i;
 				break;
@@ -183,6 +205,27 @@ private int numSheets;
 		return index;
 	}
 	
-
+	/**
+     	* Used to move a sheet to the end. That is, after the last existing sheet.
+    	* @param   from    The index of the sheet to be moved to the end.
+     	* @return          Name of sheet if successful, null string otherwise
+     	*/
+	public String moveToEnd(int from) {
+        	return move(from, nextPos-1, false);
+    	}
+    
+    	/**
+     	* Used to move a sheet to the end. That is, after the last existing sheet.
+     	* @param   from    The name of the sheet to be moved to the end.
+	* @return          Index of sheet if successful, otherwise -1.
+     	*/
+    	public int moveToEnd(String from) {
+        	int fromInt = index(from);      	// saves index of "from" in "fromInt" before it's moved to the end.
+        	if (index(move(fromInt, nextPos-1, false)) != -1) {     // Test if the sheet name is an existing sheet.
+            		return fromInt;
+        	} else {
+            		return -1;
+	 	}
+        
+   	 }
 }
-
