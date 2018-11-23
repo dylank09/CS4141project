@@ -206,7 +206,20 @@ private int numSheets;
 	
 	public int length() {
 		return numSheets;
-	}	
+	}
+	
+	
+	public int rename(String currentName, String newName) {
+		String alphabet = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789" + " ";
+		int index = index(currentName);
+		//check newName if it has any illegal characters
+		for(int i = 0 ; i < newName.length() ; i ++) {
+			if (alphabet.indexOf(newName.charAt(i)) == -1 ) return -1;
+		}
+		
+		workbook[index] = newName;
+		return index;
+	}
 	
 	
 	/**
