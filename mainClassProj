@@ -216,8 +216,13 @@ private int numSheets;
 		for(int i = 0 ; i < newName.length() ; i ++) {
 			if (alphabet.indexOf(newName.charAt(i)) == -1 ) return -1;
 		}
+		if (index(newName) != -1) {
+			index = -1;
+		}
+		else {
+			workbook[index] = newName;
+		}
 		
-		workbook[index] = newName;
 		return index;
 	}
 	
