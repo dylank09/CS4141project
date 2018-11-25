@@ -12,6 +12,7 @@ public class mainClassProj {
 private String[] workbook;
 private int nextPos;
 private int numSheets;
+private int sheetNum;
 
 private HashSet<Character> alphabet;
 
@@ -23,6 +24,7 @@ private HashSet<Character> alphabet;
 		workbook[2] = "Sheet3";
 		nextPos = 3;
 		numSheets = 3;
+		sheetNum = 4;
 		//each name must be unique (case-insensitive) - rename
 		//at least one sheet always - remove
 		//sheet must have at least one character - rename
@@ -119,10 +121,11 @@ private HashSet<Character> alphabet;
 	
 	public boolean add() {
 		if (nextPos < workbook.length) {  //if the next position is less than the capacity of the array
-			String SheetN = "Sheet" + (nextPos+1);  //creates the name for the next sheet
+			String SheetN = "Sheet" + (sheetNum);  //creates the name for the next sheet
 			workbook[nextPos] = new String(SheetN);  //creates the new sheet
 			nextPos ++;  
 			numSheets ++;
+			sheetNum ++;
 			return true;
 		}
 		else {
@@ -149,13 +152,15 @@ private HashSet<Character> alphabet;
 				val = workbook[index]; //val gets the name of the sheet at the given index
 				if(index == numSheets - 1) {
 					workbook[index] = ""; 
-					numSheets --;	
+					numSheets --;
+					nextPos --;
 			}
 			else {
 				for(int i = index ; i < numSheets ; i ++) {  //loop to move each sheet after the removed sheet back one pos
 					workbook[i] = workbook[i+1];
 				}
-			numSheets --;	
+			numSheets --;
+			nextPos --;
 			}	
 		}
 		}	
