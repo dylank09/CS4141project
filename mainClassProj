@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-/*
+/**
 * @author Padraig McCarthy - 18227465
 * @author Dylan Kearney - 18227023
 * @author Aaron Foster - 18232086
@@ -39,13 +39,13 @@ private HashSet<Character> alphabet;
 		}
 	}
 	
-	    /*
-        The 'from' element will be placed in a temporary vairable 'temp'.
-        If 'from' < 'to', each element after 'from' will be shifted back one position, i.e. [from+1] will now
-        be stored in index [from]. The 'from' index will then be placed in the index ['to' + 1] (if before == false)
-        and ['to' - 1] (if before == true). If 'from' >  'to', each element will be shifted forward and the
-        element will be placed in index 'to + 1' {if before == false) and 'to - 1' (before == true).
-        */
+	/**
+    *The 'from' element will be placed in a temporary vairable 'temp'.
+    *If 'from' < 'to', each element after 'from' will be shifted back one position, i.e. [from+1] will now
+    *be stored in index [from]. The 'from' index will then be placed in the index ['to' + 1] (if before == false)
+    *and ['to' - 1] (if before == true). If 'from' >  'to', each element will be shifted forward and the
+    *element will be placed in index 'to + 1' {if before == false) and 'to - 1' (before == true).
+    */
     	
 	public String move(int from, int to, boolean before) {
 		String value = "";
@@ -102,15 +102,15 @@ private HashSet<Character> alphabet;
 		return value;
     	}
 	
-		/**
-		 * This method will either shift each element forward or backward a number of spaces depending on whether the index 
-		 * 'from' is greater than or less than the index of 'to'. The number of spaces depends on the value of the boolean before.
-		 * If the index of 'from' is equal to the index of 'to', -1 will be returned
-		 * @param 	from 	This is the name of the sheet you want to move.
-		 * @param 	to 	This is the name of the sheet before or after which the sheet 'from' should be moved to. 
-		 * @param 	before 	If true, the sheet will be moved to before the sheet 'to'. If false it will be moved after the sheet 'to'.
-		 * @return		If a sheet is moved, the index of the sheet 'from' will be returned. If unsuccessful, -1 will be returned.
-		 */
+	/**
+	* This method will either shift each element forward or backward a number of spaces depending on whether the index 
+	* 'from' is greater than or less than the index of 'to'. The number of spaces depends on the value of the boolean before.
+	* If the index of 'from' is equal to the index of 'to', -1 will be returned
+	* @param 	from 	This is the name of the sheet you want to move.
+	* @param 	to 	This is the name of the sheet before or after which the sheet 'from' should be moved to. 
+	* @param 	before 	If true, the sheet will be moved to before the sheet 'to'. If false it will be moved after the sheet 'to'.
+	* @return		If a sheet is moved, the index of the sheet 'from' will be returned. If unsuccessful, -1 will be returned.
+	*/
     public int move(String from, String to, boolean before) {
         	if (move(index(from), index(to), before) != null)		// checks if 'from' and 'to' are elements of the array
             		return index(move(index(from), index(to), before));	// uses previous move method with index method
@@ -119,6 +119,10 @@ private HashSet<Character> alphabet;
         	}
     	}
 	
+    /**
+	* Adds a sheet when called, if there is an available space.
+	* @return		True if sheet added, otherwise false.
+	*/
 	public boolean add() {
 		if (nextPos < workbook.length) {  //if the next position is less than the capacity of the array
 			String SheetN = "Sheet" + (sheetNum);  //creates the name for the next sheet
@@ -134,6 +138,11 @@ private HashSet<Character> alphabet;
 		
 	}
 	
+	/**
+	* Removes a sheet.
+	* @param 	sheetName	Name of the sheet to be removed.	
+	* @return			If remove is successful, index of sheet is returned, otherwise -1 is returned.		
+	*/
 	public int remove(String sheetName) {
 		int i = -1;
 		if(numSheets > 1) {
@@ -145,6 +154,11 @@ private HashSet<Character> alphabet;
 		return i;
 	}
 	
+	/**
+	* Removes a sheet.
+	* @param 	index	Index of the sheet to be removed.	
+	* @return		If remove is successful, the name of the sheet is returned, otherwise null is returned.		
+	*/
 	public String remove(int index) {
 		String val = "";
 		if(numSheets > 1) {
@@ -167,6 +181,11 @@ private HashSet<Character> alphabet;
 		return val;
 	}
 	
+	/**
+	* Returns the index of a sheet, given its name.
+	* @param 	sheetName	Name of the sheet.	
+	* @return			If successful, index of sheet is returned, otherwise -1 is returned.		
+	*/
 	public int index(String sheetName) {
 		
 		int index = 0;
@@ -182,6 +201,7 @@ private HashSet<Character> alphabet;
 		}
 		return index;
 	}
+	
 	
 	public void Display() {
 		for(int i = 0 ; i < numSheets ; i ++) {
