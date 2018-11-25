@@ -1,8 +1,11 @@
-/**
+import java.util.HashSet;
+
+/*
 * @author Padraig McCarthy - 18227465
-* @author Dyan Kearney - 18227023
+* @author Dylan Kearney - 18227023
 * @author Aaron Foster - 18232086
 */
+
 
 public class mainClassProj {
 
@@ -10,114 +13,113 @@ private String[] workbook;
 private int nextPos;
 private int numSheets;
 
+private HashSet<Character> alphabet;
 
-	/**
-	* Iniatializes the workbook array.
-	* Creates three sheets: Sheet1, Sheet2 and Sheet3 in the first 3 positions (0,1,2)
-	* Sets the value of the next free position and the number of sheets to 3.
-	*/
-	public mainClassProj() {
-		workbook = new String[256]; 	// Gives workbook 256 positions. 
+
+	public mainClassProj(int capacity) {
+		workbook = new String[capacity];
 		workbook[0] = "Sheet1";
 		workbook[1] = "Sheet2";
 		workbook[2] = "Sheet3";
 		nextPos = 3;
 		numSheets = 3;
-		// each name must be unique (case-insensitive)
-		// at least one sheet always
-		// sheet must have at least one character
-		// sheets can only have A-Z, 0-9
+		//each name must be unique (case-insensitive) - rename
+		//at least one sheet always - remove
+		//sheet must have at least one character - rename
+		//sheets can only have A-Z, 0-9 - rename
 		
+		
+		//create a set of characters
+		alphabet = new HashSet<Character>();
+		String alphabetStr = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789" + " ";
+		for(int i = 0; i < alphabetStr.length(); i++) {
+			alphabet.add(alphabetStr.charAt(i));
+		}
 	}
 	
-	/**
-	* This method will either shift each element forward or backward a number of spaces depending on whether the input
-	* variable 'from' is greater than or less than 'to'. The number of spaces depends on the value of the boolean before.
-	* If 'from' is equal to 'to', null String will be returned
-        * @param 	from	This is the index of the sheet you want to move.
-	* @param 	to 	This is the index of the sheet before or after which the sheet at 'from' should be moved to. 
-	* @param 	before 	If true, the sheet will be moved to before the sheet at 'to'. If false it will be moved after the sheet at 'to'.
-	* @return	 	If a sheet is moved, the name of the sheet at 'from' will be returned. If unsuccessful, a null String will be returned.
+	    /*
+        The 'from' element will be placed in a temporary vairable 'temp'.
+        If 'from' < 'to', each element after 'from' will be shifted back one position, i.e. [from+1] will now
+        be stored in index [from]. The 'from' index will then be placed in the index ['to' + 1] (if before == false)
+        and ['to' - 1] (if before == true). If 'from' >  'to', each element will be shifted forward and the
+        element will be placed in index 'to + 1' {if before == false) and 'to - 1' (before == true).
         */
     	
 	public String move(int from, int to, boolean before) {
-		String value ;
-		if (from < nextPos && from >= 0 && to < nextPos && to >= 0) {       	// checks if the indices are sheets
+		String value = "";
+		System.out.println("\n" + from + " -- " + to);
+		if (from < nextPos && from >= 0 && to < nextPos && to >= 0) {       	// checks if 'from' and 'to' are indices of a sheet
 
-			if (before == false) {                                          
-				
-				if (from < to) {
-					String temp = workbook[from];
-					for (int i = 0; i <= to - from; i++) {          	// shifts elements backward in position 
-					workbook[from + i] = workbook[from+(i+1)];  		// e.g. [2] to [1], [3] to [2]
-				}                                               
-					workbook[to] = temp;				// assigns the String at [to] to the String
-					value = temp;					// at [from] e.g. [3] = [1]
+			if (before == false) {
 
-				} else if (from > to) {
-					String temp = workbook[from];
-					for (int i = 0; i < from - to; i++) {          	// shifts elements forward in position 
-					workbook[from - (i)] = workbook[from-(i+1)];  	// i.e. [2] to [3], [1] to [2] and so on
-				}                                               
-					workbook[to+1] = temp;				// assigns the String at [to] to the String
-					value = temp;					// at [from] e.g. [1] = [3]
+				if (from < to) {  // working :)
+				    String temp = workbook[from];
+				    for (int i = 0; i <= to - from; i++) {          	// shifts elements forward in position 
+					workbook[from + i] = workbook[from+(i+1)];  	// i.e. [1] to [2], [2] to [3] and so on
+				    }                                               
+				    workbook[to] = temp;
+				    value = temp;
 
-				} else { 						// 'from' == 'to' gives a null statement
-					value =  null;
+				} else if (from > to) { // working :)
+				    String temp = workbook[from];
+				    for (int i = 0; i <= from - to; i++) {          	// shifts elements backward in position 
+					workbook[from - (i)] = workbook[from-(i-1)];  	// i.e. [3] to [2], [2] to [1] and so on
+				    }                                               
+				    workbook[to+1] = temp;
+				    value = temp;
+
+				} else { // 'from' == 'to' gives a null statement
+				    value =  null;
 				}
 
-			} else {
+		    	} else {
 
-				if (from < to) {
-					String temp = workbook[from];
-					for (int i = 0;i <= to - from - 1; i++) {	// shifts elements backward in position
-					workbook[from + (i)] = workbook[from+i+1];  	// e.g. [2] to [1], [3] to [2]
-			}                                               		
-			workbook[to-1] = temp;						// assigns the String at [to] to the String
-			value = temp;							// at [from] e.g. [3] = [1]
+				if (from < to) { // working :)
+				    String temp = workbook[from];
+				    for (int i = 0;i <= to - from - 1; i++) {
+					workbook[from + (i)] = workbook[from+i+1];  	// shifts elements forward in position 
+				    }                                               	// i.e. [1] to [2], [2] to [3] and so on
+				    workbook[to-1] = temp;
+				    value = temp;
 
-				} else if (from > to) {
-					String temp = workbook[from];
-					for (int i = 0; i <= from - to; i++) {          // shifts elements forward in position 
-					workbook[from - (i)] = workbook[from-i-1];  	// i.e. [2] to [3], [1] to [2] and so on
-			    	}                                               
-				workbook[to] = temp;					// assigns the String at [to] to the String
-				value = temp;						// at [from] e.g. [1] = [3]
+			 	} else if (from > to) { // working :)
+				    String temp = workbook[from];
+				    for (int i = 0; i <= from - to; i++) {          	// shifts elements backward in position 
+					workbook[from - (i)] = workbook[from-i-1];  	// i.e. [3] to [2], [2] to [1] and so on
+				    }                                               
+				    workbook[to] = temp;
+				    value = temp;
 
 				} else {
-					value = null;
+				    value = null;
 				}
-		    	}
-		} else {  				// if either of the sheets do not exist, a null statement will be returned
+			}
+		} else {  		// if either of the sheets do not exist, a null statement will be returned
 		value = null;
 		}
 		return value;
-	}
-    
-    	/**
-	* This method will either shift each element forward or backward a number of spaces depending on whether the index 
-	* 'from' is greater than or less than the index of 'to'. The number of spaces depends on the value of the boolean before.
-	* If the index of 'from' is equal to the index of 'to', -1 will be returned
-	* @param 	from 	This is the name of the sheet you want to move.
-	* @param 	to 	This is the name of the sheet before or after which the sheet 'from' should be moved to. 
-	* @param 	before 	If true, the sheet will be moved to before the sheet 'to'. If false it will be moved after the sheet 'to'.
-	* @return		If a sheet is moved, the index of the sheet 'from' will be returned. If unsuccessful, -1 will be returned.
-	*/
-    	public int move(String from, String to, boolean before) {
+    	}
+	
+		/**
+		 * This method will either shift each element forward or backward a number of spaces depending on whether the index 
+		 * 'from' is greater than or less than the index of 'to'. The number of spaces depends on the value of the boolean before.
+		 * If the index of 'from' is equal to the index of 'to', -1 will be returned
+		 * @param 	from 	This is the name of the sheet you want to move.
+		 * @param 	to 	This is the name of the sheet before or after which the sheet 'from' should be moved to. 
+		 * @param 	before 	If true, the sheet will be moved to before the sheet 'to'. If false it will be moved after the sheet 'to'.
+		 * @return		If a sheet is moved, the index of the sheet 'from' will be returned. If unsuccessful, -1 will be returned.
+		 */
+    public int move(String from, String to, boolean before) {
         	if (move(index(from), index(to), before) != null)		// checks if 'from' and 'to' are elements of the array
             		return index(move(index(from), index(to), before));	// uses previous move method with index method
         	else {
             		return -1;						// returns -1 if either aren't in the array
-		}
+        	}
     	}
 	
-	/**
-	* Adds a sheet when called, if there is an available space.
-	* @return		True if sheet added, otherwise false.
-	*/
 	public boolean add() {
 		if (nextPos < workbook.length) {  //if the next position is less than the capacity of the array
-			String SheetN = "Sheet" + nextPos;  //creates the name for the next sheet
+			String SheetN = "Sheet" + (nextPos+1);  //creates the name for the next sheet
 			workbook[nextPos] = new String(SheetN);  //creates the new sheet
 			nextPos ++;  
 			numSheets ++;
@@ -129,11 +131,6 @@ private int numSheets;
 		
 	}
 	
-	/**
-	* Removes a sheet.
-	* @param 	sheetName	Name of the sheet to be removed.	
-	* @return			If remove is successful, index of sheet is returned, otherwise -1 is returned.		
-	*/
 	public int remove(String sheetName) {
 		int i = -1;
 		if(numSheets > 1) {
@@ -145,11 +142,6 @@ private int numSheets;
 		return i;
 	}
 	
-	/**
-	* Removes a sheet.
-	* @param 	index	Index of the sheet to be removed.	
-	* @return		If remove is successful, the name of the sheet is returned, otherwise null is returned.		
-	*/
 	public String remove(int index) {
 		String val = "";
 		if(numSheets > 1) {
@@ -165,16 +157,11 @@ private int numSheets;
 				}
 			numSheets --;	
 			}	
-			}
+		}
 		}	
 		return val;
 	}
 	
-	/**
-	* Returns the index of a sheet, given its name.
-	* @param 	sheetName	Name of the sheet.	
-	* @return			If successful, index of sheet is returned, otherwise -1 is returned.		
-	*/
 	public int index(String sheetName) {
 		
 		int index = 0;
@@ -191,30 +178,26 @@ private int numSheets;
 		return index;
 	}
 	
-	
 	public void Display() {
 		for(int i = 0 ; i < numSheets ; i ++) {
 			System.out.println(workbook[i]);
 		}
 	}
 	
-	
 	public String sheetName(int index) {
 		return workbook[index];
 	}
-	
 	
 	public int length() {
 		return numSheets;
 	}
 	
-	
 	public int rename(String currentName, String newName) {
-		String alphabet = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789" + " ";
 		int index = index(currentName);
 		//check newName if it has any illegal characters
 		for(int i = 0 ; i < newName.length() ; i ++) {
-			if (alphabet.indexOf(newName.charAt(i)) == -1 ) return -1;
+			if (alphabet.contains(newName.charAt(i)) == false) 
+				return -1;
 		}
 		if (index(newName) != -1) {
 			index = -1;
@@ -226,28 +209,28 @@ private int numSheets;
 		return index;
 	}
 	
-	
 	/**
-     	* Used to move a sheet to the end. That is, after the last existing sheet.
-    	* @param   from    The index of the sheet to be moved to the end.
-     	* @return          Name of sheet if successful, null string otherwise
-     	*/
+ 	* Used to move a sheet to the end. That is, after the last existing sheet.
+	* @param   from    The index of the sheet to be moved to the end.
+ 	* @return          Name of sheet if successful, null string otherwise
+ 	*/
 	public String moveToEnd(int from) {
-        	return move(from, nextPos-1, false);
+    	return move(from, nextPos-1, false);
+	}
+
+	/**
+ 	* Used to move a sheet to the end. That is, after the last existing sheet.
+ 	* @param   from    The name of the sheet to be moved to the end.
+ 	* @return          Index of sheet if successful, otherwise -1.
+ 	*/
+	public int moveToEnd(String from) {
+    	int fromInt = index(from);      	// saves index of "from" in "fromInt" before it's moved to the end.
+    	if (index(move(fromInt, nextPos-1, false)) != -1) {     // Test if the sheet name is an existing sheet.
+        		return fromInt;
+    	} else {
+        		return -1;
     	}
     
-    	/**
-     	* Used to move a sheet to the end. That is, after the last existing sheet.
-     	* @param   from    The name of the sheet to be moved to the end.
-	* @return          Index of sheet if successful, otherwise -1.
-     	*/
-    	public int moveToEnd(String from) {
-        	int fromInt = index(from);      	// saves index of "from" in "fromInt" before it's moved to the end.
-        	if (index(move(fromInt, nextPos-1, false)) != -1) {     // Test if the sheet name is an existing sheet.
-            		return fromInt;
-        	} else {
-            		return -1;
-	 	}
-        
-   	 }
+	}
+	
 }
