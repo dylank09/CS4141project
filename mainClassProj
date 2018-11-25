@@ -148,7 +148,7 @@ private HashSet<Character> alphabet;
 			if (index >= 0 && index <= numSheets) {
 				val = workbook[index]; //val gets the name of the sheet at the given index
 				if(index == numSheets - 1) {
-					workbook[index] = ""; //not perfect
+					workbook[index] = ""; 
 					numSheets --;	
 			}
 			else {
