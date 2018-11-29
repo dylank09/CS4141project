@@ -186,7 +186,7 @@ private HashSet<Character> alphabet;
 	/**
 	* Displays all existing sheets.
 	*/
-	public void Display() {
+	public void display() {
 		for(int i = 0 ; i < numSheets ; i ++) {
 			System.out.println(workbook[i]);
 		}
