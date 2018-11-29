@@ -149,15 +149,13 @@ private HashSet<Character> alphabet;
 					workbook[index] = ""; 
 					numSheets --;
 					nextPos --;
-			}
-			else {
+			} else {
 				for(int i = index ; i < numSheets ; i ++) {  //loop to move each sheet after the removed sheet back one pos
 					workbook[i] = workbook[i+1];
 				}
 			numSheets --;
 			nextPos --;
 			}	
-		}
 		}	
 		return val;
 	}
