@@ -6,62 +6,83 @@
 
 public class driver {
     public static void main(String[] args) {
+        mainClass driver;
+        driver = new mainClass();
         
-        System.out.println("Currently 3 sheets:     ~driver.display();"); 
+        System.out.println("Currently 3 sheets."); 
+        System.out.printf("%s\t%s\n","Func:","driver.display();");
         driver.display();
         
-        System.out.println("\nLet's add 7 sheets using the \"add\" method:      ~driver.add();");
-        System.out.println("Return: " + driver.add());
-        driver.add();
-        driver.add();
-        driver.add();
-        driver.add();
-        driver.add();
-        driver.add();
+        System.out.println("\nAdd 8 sheets using the \"add\" method.");
+        System.out.printf("%s\t%s\n","Func:","driver.add();");
+        for (int i = 0; i < 8; i++) {
+            if (driver.add()) {
+                System.out.println("Ret " + (i+1) + ":\ttrue" );
+            } else {
+                System.out.println("Ret:\tfalse");
+                break;
+            }
+        }
+        
         driver.display();
         
-        System.out.println("\nLet's rename the sheet in the first position to \"Title Sheet\"       ~driver.rename(\"Sheet1\", \"Title Sheet\")");
-        System.out.println("Return: " + driver.rename("Sheet1", "Title Sheet"));
+        System.out.println("\nRename \"Sheet1\" to \"Title Sheet\"");
+        System.out.printf("%s\t%s\n","Func:","driver.rename(\"Sheet1\", \"Title Sheet\");");
+        System.out.println("Ret:\t" + driver.rename("Sheet1", "Title Sheet"));
         driver.display();
         
-        System.out.println("\nAnd let's rename \"Sheet5\" to \"Acquisitions\":      ~driver.rename(\"Sheet5\", \"Acquisitions\");");
-        System.out.println("Return: " + driver.rename("Sheet5", "Acquisitions"));
+        System.out.println("\nRename \"Sheet5\" to \"Acquisitions\"");
+        System.out.printf("%s\t%s\n","Func:","driver.rename(\"Sheet5\", \"Acquisitions\");");
+        System.out.println("Ret:\t" + driver.rename("Sheet5", "Acquisitions"));
         driver.display();
         
-        System.out.println("\nNow let's move the sheet in index 3 to before the sheet at index 5:       ~driver.move(3, 5, true)");
-        System.out.println("Return: " + driver.move(3, 5, true));
+        System.out.println("\nNow let's move the sheet at index 3 to before the sheet at index 5");
+        System.out.printf("%s\t%s\n","Func:","driver.move(3,5,true);");
+        System.out.println("Ret:\t" + driver.move(3, 5, true));
         driver.display();
         
-        System.out.println("\nAnd now we'll move \"Acquisitions\" to the position after \"Sheet2\":     ~driver.move(\"Acquisitions\", \"Sheet2\", false)");
-        System.out.println("Return: " + driver.move("Acquisitions", "Sheet2", false));
+        System.out.println("\nMove \"Acquisitions\" to the position after \"Sheet2\"");
+        System.out.printf("%s\t%s\n","Func:","driver.rename(\"Acquisitions\", \"Sheet2\", false);");
+        System.out.println("Ret:\t" + driver.move("Acquisitions", "Sheet2", false));
         driver.display();
         
-        System.out.println("\nNow let's move the sheet at index 97 to after the sheet at index 4:       ~driver.move(97, 4, false)");
-        System.out.println("Return: " + driver.move(97, 4, false) + "\nThis means that one of the indices doesn't conatain a sheet (97).");
+        System.out.println("\nMove the sheet at index 271 to after the sheet at index 4");
+        System.out.printf("%s\t%s\n","Func:","driver.move(271, 4, false);");
+        System.out.println("Ret:\t" + driver.move(271, 4, false) 
+                + "\nOops, an error! In this case one of the input indices doesn't conatain a sheet (97).");
         
-        System.out.println("\nWe can try this with the overloaded version of move too:      ~driver.move(\"Immortality\", \"Title Sheet\", true)");
-        System.out.println("Return: " + driver.move("Immortality", "Title Sheet", true));
+        System.out.println("\nMove the sheet \"Average Sales\" to before the sheet \"Title Sheet\"");
+        System.out.printf("%s\t%s\n","Func:","driver.move(\"Average Sales\", \"Title Sheet\", true);");
+        System.out.println("Ret:\t" + driver.move("Average Sales", "Title Sheet", true)
+                + "\nAnother error! There is no sheet named \"Average Sales\".");
         
-        System.out.println("\nWe can remove sheets too:       driver.remove(\"Sheet7\")");
-        System.out.println("Return: " + driver.remove("Sheet7"));
+        System.out.println("\nRemove the sheet \"Sheet7\"");
+        System.out.printf("%s\t%s\n","Func:","driver.remove(\"Sheet7\");");
+        System.out.println("Ret:\t" + driver.remove("Sheet7"));
         driver.display();
         
-        System.out.println("\nBut if we try to remove a sheet that doesn't exist, an error is returned:     ~driver.remove(827)");
-        System.out.println("Return: " + driver.remove(827));
+        System.out.println("\nRemove a sheet that doesn't exist, an error is returned");
+        System.out.printf("%s\t%s\n","Func:","driver.remove(314);");
+        System.out.println("Ret:\t" + driver.remove(314));
         
-        System.out.println("\nWhat if you forget the name/position of a sheet?      ~driver.sheetName(7), driver.index(\"Sheet10\")");
-        System.out.println("Return: " + driver.sheetName(7));
-        System.out.println("Return: " + driver.index("Sheet10"));
+        System.out.println("\nGet the name/position of a sheet");
+        System.out.printf("%s\t%s\n","Func:","driver.sheetName(7);");
+        System.out.println("Ret:\t" + driver.sheetName(7));
+        System.out.printf("%s\t%s\n","Func:","driver.index(\"Sheet10\");");
+        System.out.println("Ret:\t" + driver.index("Sheet10"));
         
-        System.out.println("\nNow let's move \"Sheet4\" to the end of the list:      ~driver.moveToEnd(\"Sheet4\")");
-        System.out.println("Return: " + driver.moveToEnd("Sheet4"));
+        System.out.println("\nMove \"Acquisitions\" to the end of the list");
+        System.out.printf("%s\t%s\n","Func:","driver.moveToEnd(\"Acquisitions\");");
+        System.out.println("Ret:\t" + driver.moveToEnd("Acquisitions"));
         driver.display();
         
-        System.out.println("\nNow let's move the sheet at index 1 to the end of the list:        ~driver.moveToEnd(1)");
-        System.out.println("Return: " + driver.moveToEnd(1));
+        System.out.println("\nMove the sheet at index 1 to the end of the list");
+        System.out.printf("%s\t%s\n","Func:","driver.moveToEnd(1);");
+        System.out.println("Ret:\t" + driver.moveToEnd(1));
         driver.display();
         
-        System.out.println("\nHow many sheets currently exist?      ~driver.length()");
-        System.out.println("Return: " + driver.length());
+        System.out.println("\nHow many sheets currently exist?");
+        System.out.printf("%s\t%s\n","Func:","driver.length();");
+        System.out.println("Ret:\t" + driver.length());
     }
 }
