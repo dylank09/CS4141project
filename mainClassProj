@@ -106,9 +106,8 @@ private HashSet<Character> alphabet;
 	* @return		True if sheet added, otherwise false.
 	*/
 	public boolean add() {
-		if (nextPos < workbook.length) {  //if the next position is less than the capacity of the array
-			String SheetN = "Sheet" + (sheetNum);  //creates the name for the next sheet
-			workbook[nextPos] = SheetN;  //creates the new sheet
+		if (nextPos < workbook.length) {   //if the next position is less than the capacity of the array
+			workbook[nextPos] = "Sheet" + (sheetNum);   //creates the name and adds it to the array
 			nextPos ++;  
 			numSheets ++;
 			sheetNum ++;
@@ -130,7 +129,7 @@ private HashSet<Character> alphabet;
 		if (numSheets > 1) {
 			i = index(sheetName);
 			if (i != -1) {
-				remove(i);
+				remove(i);   //calls on other remove method
 			}
 		}
 		return i;
@@ -142,14 +141,14 @@ private HashSet<Character> alphabet;
 	* @return		If remove is successful, the name of the sheet is returned, otherwise null is returned.		
 	*/
 	public String remove(int index) {
-		String val = null;
+		String val = null;   
 		if(numSheets > 1) {
 			if (index >= 0 && index < numSheets) {
-				val = workbook[index]; //val gets the name of the sheet at the given index
+				val = workbook[index];   //val gets the name of the sheet at the given index
 				if (index == numSheets - 1) {
 					workbook[index] = null; 
 				} else {
-					for(int i = index ; i < numSheets ; i ++) {  //loop to move each sheet after the removed sheet back one pos
+					for(int i = index ; i < numSheets ; i ++) {   //loop to move each sheet after the removed sheet back one position 
 						workbook[i] = workbook[i+1];
 					}
 				}
@@ -167,8 +166,8 @@ private HashSet<Character> alphabet;
 	*/
 	public int index(String sheetName) {
 		int index = 0;
-		for(int i = 0 ; i < numSheets ; i++) {  //search for the sheetName
-			if (workbook[i].compareToIgnoreCase(sheetName) == 0) {  //this allows case-insensitivity 
+		for(int i = 0 ; i < numSheets ; i++) {  
+			if (workbook[i].compareToIgnoreCase(sheetName) == 0) {   //searches the array for sheetName and ignores the case
 				index = i;
 				break;
 			}
@@ -212,18 +211,18 @@ private HashSet<Character> alphabet;
 	*/
 	public int rename(String currentName, String newName) {
 		int index = index(currentName);
-		//check newName if it has any illegal characters
-		for(int i = 0 ; i < newName.length() ; i ++) {
-			if (alphabet.contains(newName.charAt(i)) == false) 
-				return -1;
+		if(index >= 0) {
+			for(int i = 0 ; i < newName.length() ; i ++) {    
+				if (alphabet.contains(newName.charAt(i)) == false)   //check newName if it has any illegal characters
+					return -1;
+			}
+			if (index(newName) != -1) {   //checks if newName exists already
+				index = -1;
+			}
+			else {
+				workbook[index] = newName;   //perform the rename 
+			}
 		}
-		if (index(newName) != -1) {
-			index = -1;
-		}
-		else {
-			workbook[index] = newName;
-		}
-		
 		return index;
 	}
 	
