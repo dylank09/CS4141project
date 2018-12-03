@@ -6,8 +6,8 @@
 
 public class driver {
     public static void main(String[] args) {
-        mainClass driver;
-        driver = new mainClass();
+        mainClassProj driver;
+        driver = new mainClassProj();
         
         System.out.println("Currently 3 sheets."); 
         System.out.printf("%s\t%s\n","Func:","driver.display();");
