@@ -53,7 +53,7 @@ private HashSet<Character> alphabet;
                     value = workbook[from];
                     if (before == false) {
                         if (from < to) {
-                            for (int i = 0; i <= to - from; i++) {          	// shifts elements forward in position 
+                            for (int i = 0; i < to - from; i++) {          	// shifts elements forward in position 
                                 workbook[from + i] = workbook[from+(i+1)];  	// i.e. [1] to [2], [2] to [3] and so on
                             }                                               
                             workbook[to] = temp;
@@ -72,7 +72,7 @@ private HashSet<Character> alphabet;
                             }                                               	// i.e. [1] to [2], [2] to [3] and so on
                             workbook[to-1] = temp;
                         } else if (from > to) {	
-                            for (int i = 0; i <= from - to; i++) {          	// shifts elements backward in position 
+                            for (int i = 0; i < from - to; i++) {          	// shifts elements backward in position 
                                 workbook[from - (i)] = workbook[from-i-1];  	// i.e. [3] to [2], [2] to [1] and so on
                             }                                               
                             workbook[to] = temp;
@@ -236,7 +236,11 @@ private HashSet<Character> alphabet;
  	* @return          Name of sheet if successful, null string otherwise
  	*/
 	public String moveToEnd(int from) {
-    		return move(from, nextPos-1, false);
+    		if (from == nextPos-1) {
+                	return sheetName(from);
+            	} else {
+    			return move(from, nextPos-1, false);
+            	}
 	}
 
 	/**
@@ -246,7 +250,7 @@ private HashSet<Character> alphabet;
  	*/
 	public int moveToEnd(String from) {
     		int fromInt = index(from);      	// saves index of "from" in "fromInt" before it's moved to the end.
-    		if (index(from) < nextPos-1 && index(from) >= 0) {     // Test if the sheet name is an existing sheet.
+    		if (index(from) < nextPos && index(from) >= 0) {     // Test if the sheet name is an existing sheet.
         		move(fromInt, nextPos-1, false);
 			return fromInt;
 		} else {
