@@ -42,7 +42,7 @@ public class driver {
         driver.display();
         
         System.out.println("\nMove \"Acquisitions\" to the position after \"Sheet2\"");
-        System.out.printf("%s\t%s\n","Func:","driver.rename(\"Acquisitions\", \"Sheet2\", false);");
+        System.out.printf("%s\t%s\n","Func:","driver.move(\"Acquisitions\", \"Sheet2\", false);");
         System.out.println("Ret:\t" + driver.move("Acquisitions", "Sheet2", false));
         driver.display();
         
