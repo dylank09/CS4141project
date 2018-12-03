@@ -148,7 +148,7 @@ private HashSet<Character> alphabet;
 				if (index == numSheets - 1) {
 					workbook[index] = null; 
 				} else {
-					for(int i = index ; i < numSheets ; i ++) {   //loop to move each sheet after the removed sheet back one position 
+					for(int i = index ; i < numSheets - 1; i ++) {   //loop to move each sheet after the removed sheet back one position 
 						workbook[i] = workbook[i+1];
 					}
 				}
@@ -183,17 +183,21 @@ private HashSet<Character> alphabet;
 	*/
 	public void display() {
 		for(int i = 0 ; i < numSheets ; i ++) {
-			System.out.printf("%3d:\t%s\n", i, workbook[i]);
+			System.out.printf("%-3d\t%s\n", i, workbook[i]);
 		}
 	}
 	
 	/**
 	* Gives the name of a specified sheet index.
 	* @param	index	The index of the sheet.
-	* @return 		The name of the sheet.
+	* @return 		The name of the sheet if successful, otherwise false.
 	*/
 	public String sheetName(int index) {
-		return workbook[index];
+		if (index >= 0 && index < numSheets) {
+			return workbook[index];
+		} else {
+			return null;
+		}
 	}
 	
 	/**
