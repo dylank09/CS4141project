@@ -49,7 +49,7 @@ public class driver {
         System.out.println("\nMove the sheet at index 271 to after the sheet at index 4");
         System.out.printf("%s\t%s\n","Func:","driver.move(271, 4, false);");
         System.out.println("Ret:\t" + driver.move(271, 4, false) 
-                + "\nOops, an error! In this case one of the input indices doesn't conatain a sheet (97).");
+                + "\nOops, an error! In this case one of the input indices doesn't conatain a sheet (271).");
         
         System.out.println("\nMove the sheet \"Average Sales\" to before the sheet \"Title Sheet\"");
         System.out.printf("%s\t%s\n","Func:","driver.move(\"Average Sales\", \"Title Sheet\", true);");
